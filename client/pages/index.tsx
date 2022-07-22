@@ -18,14 +18,13 @@ export default function Home({ allPostsData }: {
 
   useEffect(() => {
     fetch('/api/test')
-      .then((res) => {
-        console.log(res)
-        res.json()
-      })
+      .then((res) => res.json())
       .then((data) => {
         console.log(data)
       })
   }, [])
+
+  
   return (
     <Layout home>
       <Head>
