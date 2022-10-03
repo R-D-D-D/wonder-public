@@ -1,17 +1,24 @@
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../components/themed/Themed';
 import { RootTabScreenProps } from '../types';
 import '@expo/match-media';
 // Unleash the demo :D
 import { useMediaQuery } from "react-responsive";
 
+const Input = ({label, placeholder, value, onChange}) => {
+  return (
+    <View>
+      <Text>{label}</Text>
+      <TextInput placeholder={placeholder} value={value} onChangeText={onChange} />
+    </View>
+  );
+}
+
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const isTabletOrMobileDevice = useMediaQuery({    
-    maxDeviceWidth: 1224,
-    // alternatively...
-    query: "(max-device-width: 1224px)"  
+    maxDeviceWidth: 1224 
   });
 
   if (isTabletOrMobileDevice) {

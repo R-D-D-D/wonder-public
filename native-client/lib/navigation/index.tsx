@@ -7,23 +7,33 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import ModalScreen from '../../screens/ModalScreen';
+import NotFoundScreen from '../../screens/NotFoundScreen';
+import TabOneScreen from '../../screens/TabOneScreen';
+import TabTwoScreen from '../../screens/TabTwoScreen';
+import SigninScreen from '../../screens/signin/SigninScreen';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps, AuthStackParamList } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { getValueFor } from '../securestore';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+async function isSignedIn (): Promise<boolean> {
+  const currUser = await getValueFor('currentUser')
+  if (currUser) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export default function Navigation() {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -36,15 +46,31 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const [isSignIn, setIsSignIn] = useState(false)
+
+  useEffect(() => {
+    getValueFor('user').then((value) => {
+      setIsSignIn(!!value)
+    })
+  }, [])
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      {
+        isSignIn ? (
+          <>
+            <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+            <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+            <Stack.Group screenOptions={{ presentation: 'modal' }}>
+              <Stack.Screen name="Modal" component={ModalScreen} />
+            </Stack.Group>
+          </>
+        ) : (
+          <Stack.Screen name="SignIn" component={SigninScreen} />
+        )
+      }
     </Stack.Navigator>
-  );
+  )
 }
 
 /**

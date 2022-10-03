@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "native-client",
-    "slug": "native-client",
+    "slug": "wonder",
     "version": "1.0.0",
+    "owner": "r-d-d-d",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
