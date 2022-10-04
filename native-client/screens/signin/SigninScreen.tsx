@@ -9,6 +9,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { setUser } from '../../lib/redux/userSlice';
 import { useAppSelector, useAppDispatch } from '../../lib/redux/hooks';
 import ScreenWrapper from '../../components/ScreenWrapper';
+import { Row, Col } from '../../components/Layout';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -42,13 +43,16 @@ export default function SigninScreen({ navigation }: RootStackScreenProps<'NotFo
 
     return (
       <ScreenWrapper>
-        <Button
-          disabled={!request}
-          title="Login"
-          onPress={() => {
-            promptAsync({ showInRecents:true });
-          }}
-        />
+        <Row justifyContent='center'>
+          <Button
+            disabled={!request}
+            title="Login"
+            onPress={() => {
+              promptAsync({ showInRecents:true });
+            }}
+            style={{ width: 300 }}
+          />
+        </Row>
       </ScreenWrapper>
     );
 }
