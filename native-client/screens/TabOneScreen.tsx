@@ -1,25 +1,25 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/themed/Themed';
-import { RootTabScreenProps } from '../types';
-import '@expo/match-media';
+import EditScreenInfo from '../components/EditScreenInfo'
+import { Text, View } from '../components/themed/Themed'
+import { RootTabScreenProps } from '../types'
+import '@expo/match-media'
 // Unleash the demo :D
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from 'react-responsive'
 
-const Input = ({label, placeholder, value, onChange}) => {
+const Input = ({ label, placeholder, value, onChange }) => {
   return (
     <View>
       <Text>{label}</Text>
       <TextInput placeholder={placeholder} value={value} onChangeText={onChange} />
     </View>
-  );
+  )
 }
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const isTabletOrMobileDevice = useMediaQuery({    
-    maxDeviceWidth: 1224 
-  });
+  const isTabletOrMobileDevice = useMediaQuery({
+    maxDeviceWidth: 1224,
+  })
 
   if (isTabletOrMobileDevice) {
     return (
@@ -28,7 +28,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       </View>
-    );
+    )
   } else {
     return (
       <View style={styles.container}>
@@ -36,7 +36,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/TabOneScreen.tsx" />
       </View>
-    );
+    )
   }
 }
 
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
+})

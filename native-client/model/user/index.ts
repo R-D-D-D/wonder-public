@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../lib/firebase'
 
 const User = {
@@ -16,7 +16,7 @@ const User = {
     } catch (e) {
       console.log(e)
     }
-  }
+  },
 }
 
 export default User

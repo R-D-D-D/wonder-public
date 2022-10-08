@@ -1,13 +1,13 @@
-import { ThemeProvider, Button, createTheme } from '@rneui/themed';
+import { ThemeProvider, Button, createTheme } from '@rneui/themed'
 
 const theme = createTheme({
   components: {
     Button: {
       raised: true,
       size: 'md',
-      color: 'secondary'
+      color: 'secondary',
     },
   },
-});
+})
 
 export default theme
